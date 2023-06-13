@@ -2,23 +2,25 @@
   <div class="home">
     <Header/>
     <Carrusel></carrusel>
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <form-filtros/>
+    <maps/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
 import Header from '@/components/Header.vue';
 import Carrusel from '../components/Carrusel.vue';
+import Maps from '../components/Maps.vue';
+import FormFiltros from '../components/FormFiltros.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld,
     Header,
-    Carrusel
+    Carrusel,
+    Maps,
+    FormFiltros
   }
 }
 </script>
