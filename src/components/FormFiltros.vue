@@ -1,7 +1,10 @@
 <template>
     <div>
         <b-container>
-            <h4>Filtros</h4>
+          <b-row class="py-3">
+            <h3>Mapa </h3>
+          </b-row>
+          <b-row>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                 <b-form-row>
                     <b-form-group id="input-group-3" label="Tipo de denuncia:" label-for="input-3">
@@ -14,6 +17,8 @@
                     </b-form-group>
                 </b-form-row>
             </b-form>
+          </b-row>
+            
         </b-container>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="p-5">
-        <b-container>
+        <b-container >
             <div ref="googleMap" class="google-map"></div>
         </b-container>
       
@@ -27,21 +27,21 @@
               lat: -17.824076,
               lng: -63.127887,
               name_point: 'A',
-              title: 'text on hover',
+              title: 'Alcantarillado',
             },
             {
               id: 2,
               lat: -17.825486,
               lng: -63.127951,
               name_point: 'B',
-              title: 'texto ',
+              title: 'Basura ',
             },
             {
               id: 3,
               lat: -17.826303,
               lng: -63.130827,
               name_point: 'C',
-              title: 'text on hover',
+              title: 'Calles y avenidas',
             },
             
           ],

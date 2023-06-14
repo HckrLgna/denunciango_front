@@ -1,8 +1,9 @@
 <template>
     <div>
-        <b-navbar toggleable="md" type="dark" variant="danger">
+        <b-navbar toggleable="md" type="dark" variant="dark" class="p-3">
             <b-container>
-                <b-navbar-brand href="#">Denunciango web</b-navbar-brand>
+                <img src="../assets/logo.png" alt="logo" height="50px" width="50px">
+                <b-navbar-brand :to="{name: 'home'}">Denunciango web</b-navbar-brand>
 
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
