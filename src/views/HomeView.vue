@@ -2,7 +2,6 @@
   <div class="home">
     <Header/>
     <Carrusel></carrusel>
-      <form-filtros/>
     <maps/>
   </div>
 </template>
@@ -12,7 +11,6 @@
 import Header from '@/components/Header.vue';
 import Carrusel from '../components/Carrusel.vue';
 import Maps from '../components/Maps.vue';
-import FormFiltros from '../components/FormFiltros.vue';
 
 export default {
   name: 'HomeView',
@@ -20,7 +18,6 @@ export default {
     Header,
     Carrusel,
     Maps,
-    FormFiltros
   }
 }
 </script>

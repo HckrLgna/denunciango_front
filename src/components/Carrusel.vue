@@ -7,37 +7,52 @@
         controls
         indicators
         background="#ababab"
-        img-width="1024"
-        img-height="580"
+        img-width="860"
+        img-height="560"
         style="text-shadow: 1px 1px 2px #333;"
         @sliding-start="onSlideStart"
         @sliding-end="onSlideEnd"
       >
         <!-- Text slides with image -->
         <b-carousel-slide
-          caption="First slide"
-          text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-          img-src=" "
-        ></b-carousel-slide>
+          caption="Bienvenido al portal de denuncias del"
+          text="GOBIERNO AUTONOMO MUNICIPAL DE SANTA CRUZ DE LA SIERRA"
+        >
+        <template #img>
+            <img
+              class="d-block  "
+              width="2048"
+              height="500"
+              src="../assets/portada2.jpg"
+              alt="image slot"
+            >
+          </template>
+      </b-carousel-slide>
   
         <!-- Slides with custom text -->
-        <b-carousel-slide img-src=" ">
-          <h2>Bienvenido al portal de denuncias del</h2>
-          <h1>GOBIERNO AUTONOMO MUNICIPAL DE SANTA CRUZ DE LA SIERRA </h1>
-          <h3>Solidario, moderno y participativo</h3>
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block  "
+              width="2048"
+              height="500"
+              src="../assets/portada1.jpg"
+              alt="image slot"
+            >
+             
+          </template>
+          
         </b-carousel-slide>
   
-        <!-- Slides with image only -->
-        <b-carousel-slide img-src=" "></b-carousel-slide>
-  
+        <!-- Slides with image only -->  
         <!-- Slides with img slot -->
         <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
         <b-carousel-slide>
           <template #img>
             <img
-              class="d-block img-fluid w-100"
-              width="1024"
-              height="380"
+              class="d-block  "
+              width="2048"
+              height="500"
               src="../assets/image 12.png"
               alt="image slot"
             >
