@@ -7,14 +7,36 @@
           <b-row>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                 <b-form-row>
-                    <b-form-group id="input-group-3" label="Tipo de denuncia:" label-for="input-3">
+                    <b-form-group id="input-group-3" label="Tipo de denuncia:" label-for="input-tipo">
                         <b-form-select
-                        id="input-3"
-                        v-model="form.food"
-                        :options="foods"
+                        id="input-tipo"
+                        v-model="form.tipo"
+                        :options="tipos"
                         required
                         ></b-form-select>
                     </b-form-group>
+                </b-form-row>
+                <b-form-row>
+                    <b-form-group id="input-group-3" label="Estado de denuncia:" label-for="input-estado">
+                        <b-form-select
+                        id="input-estado"
+                        v-model="form.estado"
+                        :options="estados"
+                        required
+                        ></b-form-select>
+                    </b-form-group>
+                </b-form-row>
+                <b-form-row>
+                  <div class="mb-3">
+                    <b-form-datepicker
+                      v-model="form.fecha_inicio"
+                      placeholder="Fecha de inicio"
+                    ></b-form-datepicker>
+                    <b-form-datepicker
+                      v-model="form"
+                      placeholder="Fecha de fin"
+                    ></b-form-datepicker>
+                  </div>
                 </b-form-row>
             </b-form>
           </b-row>
@@ -33,7 +55,8 @@
           food: null,
           checked: []
         },
-        foods: [{ text: 'Basura', value: null }, 'Ruido', 'Alumbrado', 'Carretera', 'Corn'],
+        estados: [],
+        tipos: [],
         show: true
       }
     },

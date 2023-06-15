@@ -17,18 +17,18 @@
         <b-carousel-slide
           caption="First slide"
           text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-          img-src="https://www.santacruz.gob.bo/sites/default/files/slider_list/Foto%20Portada%20Casa%20de%20Gobierno%20-%20Gobernacion.jpg"
+          img-src=" "
         ></b-carousel-slide>
   
         <!-- Slides with custom text -->
-        <b-carousel-slide img-src="https://www.santacruz.gob.bo/sites/default/files/slider_list/Foto%20Portada%20Casa%20de%20Gobierno%20-%20Gobernacion.jpg">
+        <b-carousel-slide img-src=" ">
           <h2>Bienvenido al portal de denuncias del</h2>
           <h1>GOBIERNO AUTONOMO MUNICIPAL DE SANTA CRUZ DE LA SIERRA </h1>
           <h3>Solidario, moderno y participativo</h3>
         </b-carousel-slide>
   
         <!-- Slides with image only -->
-        <b-carousel-slide img-src="https://www.santacruz.gob.bo/sites/default/files/slider_list/Foto%20Portada%20Casa%20de%20Gobierno%20-%20Gobernacion.jpg"></b-carousel-slide>
+        <b-carousel-slide img-src=" "></b-carousel-slide>
   
         <!-- Slides with img slot -->
         <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
