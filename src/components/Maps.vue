@@ -67,7 +67,7 @@
             style="max-width: 20rem;"
           >
             <b-card-text>
-              "Alumbrado" se refiere a un reporte o queja relacionada con el sistema de iluminación de una determinada área, como calles, parques, aceras u otros espacios públicos.  
+              "Alumbrado" se refiere a un reporte o queja relacionada con el sistema de iluminación de una determinada área, como calles, parques, aceras u otros espacios públicos de recreacion parques y jardines.  
             </b-card-text>
 
           </b-card>
@@ -170,9 +170,9 @@ export default {
   data() {
     return {
       mapOptions: {
-        center: { lat: -17.824069, lng: -63.130153 },
+        center: { lat: -17.7831936, lng: -63.1701504 },
         zoomControl: true,
-        zoom: 17,
+        zoom: 13,
         gestureHandling: "cooperative",
       },
       locations: {
@@ -318,7 +318,8 @@ export default {
       const longitude = position.coords.longitude;
       this.latActual = latitude;
       this.lngActual = longitude;
-      
+      console.log(latitude);
+      console.log(longitude);
     },
     handleEstadoChange() {
       this.fetchMarkers();
