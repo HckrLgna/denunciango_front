@@ -1,87 +1,91 @@
 <template>
   <div  >
-    
-
     <b-container fluid class="bg-light p-5 ">
-        <b-row class="px-5 py-2 mx-3">
-          <h2>Visualiza las denuncias cercanas</h2>
-        </b-row>
-        <b-row class="px-5 py-4 align-items-center">
-        <b-col class="col-4 p-1 h-100">
-          <b-form-group
-            id="input-group-estado"
-            label="Seleccione un estado:"
-            label-for="input-estado"
-          >
-            <b-form-select
-              id="input-estado"
-              v-model="estado"
-              :options="estados"
-              @change="handleEstadoChange"
-            ></b-form-select>
-          </b-form-group>
-        </b-col>
-        <b-col class="col-4 p-1 h-100">
-          <b-form-group
-            id="input-group-tipo"
-            label="Seleccione un tipo:"
-            label-for="input-tipo"
-          >
-            <b-form-select
-              id="input-tipo"
-              v-model="tipo"
-              :options="tipos"
-              @change="handleTipoChange"
-            ></b-form-select>
-          </b-form-group>
-        </b-col>
-        <b-col class="col-6 p-1 h-100">
-          <b-form-group
-            id="input-group-fechaIni"
-            label="Seleccione una fecha inicio:"
-            label-for="input-fechaIni">
-            <b-form-datepicker
-              id="input-fechaIni"
-              v-model="filterFechaInicio"
-              placeholder="Fecha de inicio"
-              @change="handleFechaInicioChange"
-            ></b-form-datepicker>
-          </b-form-group>
-         
-        </b-col>
-        <b-col class="col-6 p-1 h-100">
-          <b-form-group
-            id="input-group-fechaFin"
-            label="Seleccione una fecha final:"
-            label-for="input-fechaFin">
-            <b-form-datepicker
-              id="input-fechaFin"
-              v-model="filterFechaFin"
-              placeholder="Fecha fin"
-              @change="handleFechaFinChange"
-            ></b-form-datepicker>
-          </b-form-group>
-        </b-col>
-    
-      </b-row> 
-      <b-row class="px-5 pb-5" >
-        <b-form-checkbox
-            id="checkbox-1"
-            v-model="status"
-            name="checkbox-1"
-            value="accepted"
-            unchecked-value="not_accepted"
-            @change="handleStatusChange"
-          >
-            Aplicar filtros
-          </b-form-checkbox>
+      <b-row class="px-5 py-2 mx-3">
+              <h2>Mapa de denuncias</h2>
       </b-row>
+      <b-row>
+        <b-col class="col col-md-4">
+            <b-row class="px-5 py-4 align-items-center">
+            <b-col class="col-4 p-1 h-100">
+              <b-form-group
+                id="input-group-estado"
+                label="Seleccione un estado:"
+                label-for="input-estado"
+              >
+                <b-form-select
+                  id="input-estado"
+                  v-model="estado"
+                  :options="estados"
+                  @change="handleEstadoChange"
+                ></b-form-select>
+              </b-form-group>
+            </b-col>
+            <b-col class="col-4 p-1 h-100">
+              <b-form-group
+                id="input-group-tipo"
+                label="Seleccione un tipo:"
+                label-for="input-tipo"
+              >
+                <b-form-select
+                  id="input-tipo"
+                  v-model="tipo"
+                  :options="tipos"
+                  @change="handleTipoChange"
+                ></b-form-select>
+              </b-form-group>
+            </b-col>
+            <b-col class="col-6 p-1 h-100">
+              <b-form-group
+                id="input-group-fechaIni"
+                label="Seleccione una fecha inicio:"
+                label-for="input-fechaIni">
+                <b-form-datepicker
+                  id="input-fechaIni"
+                  v-model="filterFechaInicio"
+                  placeholder="Fecha de inicio"
+                  @change="handleFechaInicioChange"
+                ></b-form-datepicker>
+              </b-form-group>
+            
+            </b-col>
+            <b-col class="col-6 p-1 h-100">
+              <b-form-group
+                id="input-group-fechaFin"
+                label="Seleccione una fecha final:"
+                label-for="input-fechaFin">
+                <b-form-datepicker
+                  id="input-fechaFin"
+                  v-model="filterFechaFin"
+                  placeholder="Fecha fin"
+                  @change="handleFechaFinChange"
+                ></b-form-datepicker>
+              </b-form-group>
+            </b-col>
+        
+          </b-row> 
+          <b-row class="px-5 pb-5" >
+            <b-form-checkbox
+                id="checkbox-1"
+                v-model="status"
+                name="checkbox-1"
+                value="accepted"
+                unchecked-value="not_accepted"
+                @change="handleStatusChange"
+              >
+                Aplicar filtros
+              </b-form-checkbox>
+          </b-row>
+        </b-col> 
+        <b-col class="col col-md-8">
+          <b-row class="px-5">
+            <div ref="googleMap" class="google-map"></div>
+          </b-row>
+        </b-col>
+      </b-row>
+        
 
-    
-
-       <b-row class="px-5">
-        <div ref="googleMap" class="google-map"></div>
-       </b-row>
+      
      
     </b-container>
   </div>
