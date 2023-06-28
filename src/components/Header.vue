@@ -10,8 +10,8 @@
                 <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
                     <b-nav-item :to="{name: 'map'}" exact>Mapa de denuncias</b-nav-item>
-                    <b-nav-item :to="{name: 'graph'}">Grafico de denuncias</b-nav-item>
-                    <b-nav-item :to="{name: 'login'}">Iniciar sesion</b-nav-item>
+                    <b-nav-item :to="{name: 'graph'}" exact >Grafico de denuncias</b-nav-item>
+                    <b-nav-item :to="{name: 'login'}" exact>Iniciar sesion</b-nav-item>
 
                 </b-navbar-nav>
 
