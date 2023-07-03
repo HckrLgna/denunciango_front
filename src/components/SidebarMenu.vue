@@ -67,17 +67,7 @@
           </ul>
         </div>
   
-        <div
-          v-if="isLoggedIn"
-          class="profile"
-        >
-          <i
-            v-if="isExitButton"
-            class="bx bx-log-out"
-            id="log_out"
-            @click.stop="$emit('button-exit-clicked')"
-          />
-        </div>
+       
       </div>
       
     </div>
@@ -328,7 +318,7 @@
       flex-direction: column;
       left: 0;
       top: 0;
-      height: 100%;
+      height: auto;
       min-height: min-content;
       /* overflow-y: auto; */
       width: 100px;

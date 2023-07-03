@@ -63,11 +63,11 @@
                     <b-col>
                         <label for="example-datepicker">Fecha:</label>
                         <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2"></b-form-datepicker>
-                        <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+                        <b-form-group id="input-group-estado" label="Estado" label-for="input-estado">
                             <b-form-select
-                            id="input-3"
-                            v-model="form.food"
-                            :options="foods"
+                            id="input-estado"
+                            v-model="form.estado"
+                            :options="estados"
                             required
                             ></b-form-select>
                         </b-form-group>
@@ -85,12 +85,11 @@
                             placeholder="google.com"
                             ></b-form-input>
                         </b-form-group>
-                        <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+                        <b-form-group id="input-group-3" label="Tipo" label-for="input-tipo">
                             <b-form-select
-                            id="input-3"
-                            v-model="form.food"
-                            :options="foods"
-                            required
+                            id="input-tipo"
+                            v-model="form.tipo"
+                            :options="tipos"
                             ></b-form-select>
                         </b-form-group>
                         
@@ -121,9 +120,10 @@
             email: '',
             name: '',
             food: null,
-            checked: []
+            checked: [],
+            estados: null,
+            tipos: null,
             },
-            foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
             show: true,
             comentario:''
         }
