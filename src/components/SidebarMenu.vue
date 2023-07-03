@@ -25,7 +25,7 @@
           flex-direction: column;
           justify-content: space-between;
           flex-grow: 1;
-          max-height: calc(100% - 60px);
+          max-height: auto;
         "
       >
         <div
@@ -62,12 +62,7 @@
                 />
                 <span class="links_name">{{ menuItem.name }}</span>
               </a>
-              <span
-                :data-target="'links_' + index"
-                class="tooltip"
-              >{{
-                menuItem.tooltip || menuItem.name
-              }}</span>
+              
             </li>
           </ul>
         </div>
@@ -84,6 +79,7 @@
           />
         </div>
       </div>
+      
     </div>
   </template>
   
@@ -118,11 +114,11 @@
         },
         menuOpenedPaddingLeftBody: {
           type: String,
-          default: '250px',
+          default: '0px',
         },
         menuClosedPaddingLeftBody: {
           type: String,
-          default: '78px',
+          default: '0px',
         },
   
         //! Menu items
@@ -130,13 +126,13 @@
           type: Array,
           default: () => [
             {
-              link: '#',
+              link: '#/imbox',
               name: 'Bandeja',
               tooltip: 'Bandeja',
               icon: 'bx-grid-alt',
             },
             {
-              link: '#',
+              link: '#/users',
               name: 'Usuarios',
               tooltip: 'Usuarios',
               icon: 'bx-user',
@@ -330,13 +326,12 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      position: fixed;
       left: 0;
       top: 0;
       height: 100%;
       min-height: min-content;
       /* overflow-y: auto; */
-      width: 78px;
+      width: 100px;
       background: var(--bg-color);
       /* padding: 6px 14px 0 14px; */
       z-index: 99;

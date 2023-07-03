@@ -1,5 +1,5 @@
 <template>
-    <b-container class="p-5">
+    <b-container class="p-3 m-auto">
         <b-row>
             <b-col col md="6" >
                 <h2>Bandeja de Entrada</h2>
@@ -77,7 +77,6 @@
             ></b-table>
             </div>
         </b-row>
-        
     </b-container>
    
   </template>
