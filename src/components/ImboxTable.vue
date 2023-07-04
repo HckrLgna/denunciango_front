@@ -84,8 +84,15 @@
                 medium
             >
             <template v-slot:cell(selected)="row">
-                 <input type="checkbox" v-model="row.item.selected">
+                <input type="checkbox" :checked="selected.includes(row.item.id)" @input="toggleSelected(row.item.id)">
             </template>
+            <template v-slot:cell(editar)="row">
+                <router-link :to="`/complaint/${row.item.id}`">Editar</router-link>
+            </template>
+            <template v-slot:cell(ver)="row">
+                <router-link :to="`/map-complaint/${row.item.id}`">Ver mapa</router-link>
+            </template>
+
             </b-table>
             </div>
         </b-row>
@@ -100,7 +107,8 @@
           perPage: 3,
           currentPage: 1,
           items: [
-            {selected: true , descripcion: 'El parque del km 6 esta descuidado', fecha: '23/06/2023-11:59', categoria: 'Parques y jardines', estado: 'nueva', editar: 'editar', ver: 'mapa'},
+            {id:1 , selected: [] , descripcion: 'El parque del km 6 esta descuidado', fecha: '23/06/2023-11:59', categoria: 'Parques y jardines', estado: 'nueva', editar: 'editar', ver: 'mapa'},
+            {id:2 , selected: [] , descripcion: 'El parque del km 6 esta descuidado', fecha: '23/06/2023-11:59', categoria: 'Parques y jardines', estado: 'nueva', editar: 'editar', ver: 'mapa'},
            
           ],
           fields: [
@@ -109,8 +117,8 @@
                 { key: 'fecha', label: 'Fecha' },
                 { key: 'categoria', label: 'Categoria' },
                 { key: 'estado', label: 'Estado' },
-                { key: 'editar', label: 'Editar' },
-                { key: 'ver', label: 'Ver' },
+                { key: 'editar', label: 'Editar', sortable: false },
+                { key: 'ver', label: 'Ver', sortable: false  },
             ],
           value: '',
           filterFechaInicio: null, // Fecha de inicio seleccionada para filtrar
@@ -121,12 +129,11 @@
           estados: [],
           date: null,
           isHidden: true,
-          selected: ''
+          selected: [],
         }
       },
       mounted() {
             let dropdown = this.$refs.dropdown;
-
             const customDatePicker = document.getElementById('customDatePicker');
             customDatePicker?.addEventListener('click', (event) => {
                 event.stopPropagation();
@@ -147,37 +154,45 @@
       methods: {
         handleEstadoChange() {
             this.fetchMarkers();
-            },
+        },
             // Método para manejar el evento de cambio de valor del selector de tipo
-            handleTipoChange() {
+        handleTipoChange() {
             this.fetchMarkers();
-            },
+        },
 
             // Método para manejar el evento de selección de fecha de inicio
-            handleFechaInicioChange() {
+        handleFechaInicioChange() {
             this.fetchMarkers();
-            },
+        },
 
             // Método para manejar el evento de selección de fecha de fin
-            handleFechaFinChange() {
+        handleFechaFinChange() {
             this.fetchMarkers();
-            },
-            handleStatusChange(){
+        },
+        handleStatusChange(){
             console.log(this.status == "accepted");
             if(this.status != "accepted"){
                 this.limpiarDatos();
             }
             this.fetchMarkers();
             
-            },
-            limpiarDatos(){
+        },
+        limpiarDatos(){
             console.log("entro limpiar datos")
             this.status=false;
             this.tipo=null;
             this.estado=null;
             this.filterFechaFin=null;
             this.filterFechaInicio=null;
-            } 
+        },
+        toggleSelected(id) {
+            if (this.selected.includes(id)) {
+            this.selected = this.selected.filter(item => item !== id);
+            } else {
+            this.selected.push(id);
+            }
+            console.log(this.selected.join(','));
+        },
       },
       computed: {
         rows() {

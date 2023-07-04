@@ -42,8 +42,8 @@
               :id="'links_' + index"
             >
               <router-link
-                v-if="isUsedVueRouter"
                 :to="menuItem.link"
+                active-class="active" exact
               >
                 <i
                   class="bx"
@@ -51,17 +51,7 @@
                 />
                 <span class="links_name">{{ menuItem.name }}</span>
               </router-link>
-              <a
-                v-else
-                @click.stop.prevent="$emit('menuItemClcked', menuItem.link)"
-                :href="menuItem.link"
-              >
-                <i
-                  class="bx"
-                  :class="menuItem.icon || 'bx-square-rounded'"
-                />
-                <span class="links_name">{{ menuItem.name }}</span>
-              </a>
+              <router-view></router-view>
               
             </li>
           </ul>
@@ -72,8 +62,9 @@
       
     </div>
   </template>
-  
+ 
   <script>
+  import router from '@/router';
     export default {
       name: 'SidebarMenu',
       props: {
@@ -116,22 +107,34 @@
           type: Array,
           default: () => [
             {
-              link: '#/imbox',
+              link: 'imbox',
               name: 'Bandeja',
               tooltip: 'Bandeja',
               icon: 'bx-grid-alt',
             },
             {
-              link: '#/users',
+              link: 'users',
               name: 'Usuarios',
               tooltip: 'Usuarios',
               icon: 'bx-user',
             },
             {
+              link: 'area',
+              name: 'Areas',
+              tooltip: 'areas',
+              icon: 'bx-folder',
+            },
+            {
               link: '#',
-              name: 'Messages',
-              tooltip: 'Messages',
+              name: 'Denuncias',
+              tooltip: 'denuncias',
               icon: 'bx-chat',
+            },
+            {
+              link: '#',
+              name: 'Mapa',
+              tooltip: 'Order',
+              icon: 'bx-cart-alt',
             },
             {
               link: '#',
@@ -139,24 +142,8 @@
               tooltip: 'estadisticas',
               icon: 'bx-pie-chart-alt-2',
             },
-            {
-              link: '#',
-              name: 'File Manager',
-              tooltip: 'Files',
-              icon: 'bx-folder',
-            },
-            {
-              link: '#',
-              name: 'Order',
-              tooltip: 'Order',
-              icon: 'bx-cart-alt',
-            },
-            {
-              link: '#',
-              name: 'Saved',
-              tooltip: 'Saved',
-              icon: 'bx-heart',
-            },
+           
+            
             {
               link: '#',
               name: 'Setting',
