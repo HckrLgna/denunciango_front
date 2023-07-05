@@ -164,7 +164,6 @@
         handleFechaInicioChange() {
             this.fetchMarkers();
         },
-
             // Método para manejar el evento de selección de fecha de fin
         handleFechaFinChange() {
             this.fetchMarkers();

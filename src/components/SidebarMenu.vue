@@ -113,7 +113,7 @@
               icon: 'bx-grid-alt',
             },
             {
-              link: 'users',
+              link: 'user',
               name: 'Usuarios',
               tooltip: 'Usuarios',
               icon: 'bx-user',

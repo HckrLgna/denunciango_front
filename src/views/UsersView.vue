@@ -1,21 +1,23 @@
 <template>
   <div class="imbox">
     <Header/>
-    <SidebarMenu :isMenuOpen="true" profileImg="" />
-      <div>
- 
-      </div>
+    <b-row>
+      <SidebarMenu :isMenuOpen="true" profileImg="" />
+      <b-col>
+        <UserTable/>
+      </b-col>
+    </b-row>
   </div>
-    
-  </template>
+</template>
   
   <script>
   import SidebarMenu from "../components/SidebarMenu";
   import Header from '@/components/Header.vue';
+  import UserTable from "@/components/UserTable.vue";
   
   export default {
     name: "UsersView",
-    components: { SidebarMenu, Header},
+    components: { SidebarMenu, Header, UserTable},
     data() {
       return {};
     },
