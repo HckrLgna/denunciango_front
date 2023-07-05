@@ -13,10 +13,10 @@
             <b-col col md="4">
                 <b-row>
                     <b-col>
-                        <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1"></b-img>
+                        <b-img thumbnail fluid :src="'data:image/jpeg;base64,' + imgDen1" alt="Image 1"></b-img>
                     </b-col>
-                    <b-col>
-                        <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" alt="Image 2"></b-img>
+                    <b-col v-if="imgDen2 != null ">
+                        <b-img thumbnail fluid :src="'data:image/jpeg;base64,' + imgDen2" alt="Image 2"></b-img>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -28,7 +28,7 @@
                             align="center"
                         >
                             <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" rounded="circle" alt="Image 2"></b-img>
-                            <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
+                            <b-card-text>{{ correoUsuario }}</b-card-text>
                         </b-card>
                     </b-col>
                 </b-row>
@@ -37,23 +37,25 @@
                 <b-form @submit="onSubmit"  v-if="show">
                  <b-row>
                     <b-form-group
-                    id="input-group-1"
+                    id="input-group-titulo"
                     label="Titulo"
-                    label-for="input-1"
+                    label-for="input-titulo"
                     >
                     <b-form-input
-                    id="input-1"
-                    v-model="form.email"
-                    type="email"
+                    id="input-titulo"
+                    v-model="form.titulo"
+                    type="text"
                     placeholder=""
+                    value="asd"
                     required
                     ></b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="input-group-2" label="Descripcion" label-for="textarea-descripcion">
+                    <b-form-group id="input-group-descripcion" label="Descripcion" label-for="textarea-descripcion">
                         <b-form-textarea
                             id="textarea-descripcion"
                             placeholder="Fixed height textarea"
+                            v-model="form.descripcion"
                             rows="3"
                             no-resize
                         ></b-form-textarea>
@@ -61,11 +63,12 @@
                  </b-row>
                  <b-row>
                     <b-col>
-                        <label for="example-datepicker">Fecha:</label>
-                        <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2"></b-form-datepicker>
-                        <b-form-group id="input-group-estado" label="Estado" label-for="input-estado">
+                        <label for="fecha-datepicker">Fecha:</label>
+                        <b-form-datepicker id="fecha-datepicker" v-model="form.fecha" class="mb-2"></b-form-datepicker>
+
+                        <b-form-group id="input-group-estado" label="Estado" label-for="select-estado">
                             <b-form-select
-                            id="input-estado"
+                            id="select-estado"
                             v-model="form.estado"
                             :options="estados"
                             required
@@ -81,13 +84,14 @@
                             <b-form-input
                             id="input-ubicacion"
                             v-model="form.ubicacion"
-                            type="name"
-                            placeholder="google.com"
+                            type="url"
+                            placeholder=""
                             ></b-form-input>
                         </b-form-group>
-                        <b-form-group id="input-group-3" label="Tipo" label-for="input-tipo">
+
+                        <b-form-group id="input-group-tipo" label="Tipo" label-for="select-tipo">
                             <b-form-select
-                            id="input-tipo"
+                            id="select-tipo"
                             v-model="form.tipo"
                             :options="tipos"
                             ></b-form-select>
@@ -97,11 +101,15 @@
                  </b-row>   
                  <b-row>
                     <b-form-group
-                    id="input-group-4"
+                    id="input-group-comentario"
                     label="Comentario de respuesta"
                     label-for="input-comentario"
                     >
-                        <b-form-input id="input-comentario" v-model="comentario" placeholder="Escribir un comentario"></b-form-input>
+                        <b-form-input 
+                            id="input-comentario" 
+                            v-model="comentario" 
+                            placeholder="Escribir un comentario"
+                        ></b-form-input>
                     </b-form-group>
                     
                  </b-row>
@@ -113,20 +121,39 @@
   </template>
   
   <script>
+  import axios from 'axios';
     export default {
       data() {
         return { 
             form: {
-            email: '',
-            name: '',
-            food: null,
-            checked: [],
-            estados: null,
-            tipos: null,
+                titulo:'',
+                descripcion:'',
+                fecha:null,
+                ubicacion:'',
+                estado: null,
+                tipo: null,
+                comentario:''
             },
+            estados:[],
+            tipos:[],
+            imgDen1: '',
+            imgDen2: '',
+            correoUsuario: '',
             show: true,
             comentario:''
         }
+      },
+      mounted() {
+        axios.get('https://denunciangows.fly.dev/api/obtenerDenuncias')
+            .then(response => {
+                this.estados = response.data.data.ests.map(est => ({ value: est.estId, text: est.estTitulo }));
+                this.tipos = response.data.data.tds.map(td => ({ value: td.tdId, text: td.tdTitulo }));
+            })
+            .catch(error => {
+                console.error(error);
+        });
+
+        this.fetchDetalleDenuncia();
       },
       computed: {
         
@@ -134,6 +161,45 @@
       methods:{
         onSubmit(event){
             console.log('eviando')
+        },
+        fetchDetalleDenuncia(){
+            const denId = this.$route.params.id;
+            axios.post('https://denunciangows.fly.dev/api/obtenerDetDen/', { denId }, {
+            headers: {
+                'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                // Aquí puedes manejar la respuesta de la solicitud POST
+                console.log(response.data.data.den.denTitulo);
+                this.form.titulo = response.data.data.den.denTitulo
+                this.form.descripcion = response.data.data.den.denDescripcion
+                const fecha = new Date(response.data.data.den.denFecha);
+                this.form.fecha = fecha;
+                this.form.ubicacion = "google.maps.com";
+
+                const estadoSeleccionado = this.estados.find(
+                    estado => estado.value === response.data.data.den.denEstado
+                );
+
+                if (estadoSeleccionado) {
+                    this.form.estado = estadoSeleccionado.value;
+                }
+                const tipoSeleccionado = this.tipos.find(
+                    tipo => tipo.value === response.data.data.den.denTipo
+                );
+                console.log(tipoSeleccionado);
+                if (tipoSeleccionado) {
+                    
+                    this.form.tipo = tipoSeleccionado;
+                }
+                this.imgDen1 = response.data.data.denImagenes[0];
+                this.imgDen2 = response.data.data.denImagenes[1];
+                this.correoUsuario = response.data.data.den.denUsu;
+            })
+            .catch(error => {
+                console.error(error);
+            });
         }
       }
     }

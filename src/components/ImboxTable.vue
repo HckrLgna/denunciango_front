@@ -87,10 +87,10 @@
                 <input type="checkbox" :checked="selected.includes(row.item.id)" @input="toggleSelected(row.item.id)">
             </template>
             <template v-slot:cell(editar)="row">
-                <router-link :to="`/complaint/${row.item.id}`">Editar</router-link>
+                <router-link :to="`/complaint/${row.item.denId}`">Editar</router-link>
             </template>
             <template v-slot:cell(ver)="row">
-                <router-link :to="`/map-complaint/${row.item.id}`">Ver mapa</router-link>
+                <router-link :to="`/map-complaint/${row.item.denId}`">Ver mapa</router-link>
             </template>
 
             </b-table>
@@ -101,22 +101,19 @@
   </template>
   
   <script>
+import axios from 'axios';
     export default {
       data() {
         return {
-          perPage: 3,
+          perPage: 13,
           currentPage: 1,
-          items: [
-            {id:1 , selected: [] , descripcion: 'El parque del km 6 esta descuidado', fecha: '23/06/2023-11:59', categoria: 'Parques y jardines', estado: 'nueva', editar: 'editar', ver: 'mapa'},
-            {id:2 , selected: [] , descripcion: 'El parque del km 6 esta descuidado', fecha: '23/06/2023-11:59', categoria: 'Parques y jardines', estado: 'nueva', editar: 'editar', ver: 'mapa'},
-           
-          ],
+          items: [],
           fields: [
                 { key: 'selected', label: 'Seleccionar'  },
-                { key: 'descripcion', label: 'Descripcion' },
-                { key: 'fecha', label: 'Fecha' },
-                { key: 'categoria', label: 'Categoria' },
-                { key: 'estado', label: 'Estado' },
+                { key: 'denTitulo', label: 'Titulo' },
+                { key: 'denFecha', label: 'Fecha' },
+                { key: 'denTipo', label: 'Tipo' },
+                { key: 'denEstTitulo', label: 'Estado' },
                 { key: 'editar', label: 'Editar', sortable: false },
                 { key: 'ver', label: 'Ver', sortable: false  },
             ],
@@ -133,6 +130,7 @@
         }
       },
       mounted() {
+        
             let dropdown = this.$refs.dropdown;
             const customDatePicker = document.getElementById('customDatePicker');
             customDatePicker?.addEventListener('click', (event) => {
@@ -149,6 +147,16 @@
             customCalendar?.addEventListener('click',(event)=>{
                 event.stopPropagation();
             })
+            axios.get('https://denunciangows.fly.dev/api/obtenerDenuncias')
+            .then(response => {
+            // Manejar la respuesta del servidor y asignar los datos a la variable "items"
+            console.log(response.data.data.denuncias);
+            this.items = response.data.data.denuncias;
+            })
+            .catch(error => {
+            // Manejar el error de la solicitud
+            console.error(error);
+            });
          
         },
       methods: {
