@@ -5,35 +5,38 @@
                 <h2>Bandeja de Entrada > Ver denuncia</h2>
             </b-col>
 
-            <b-col col md="3" >
-                <b-button>Guardar Cambios</b-button>
-            </b-col>
+            
         </b-row>
         <b-row>
-            <b-col col md="4">
+            <b-col col md="5" class="p-3">
                 <b-row>
-                    <b-col>
+                    <b-col col md="6">
                         <b-img thumbnail fluid :src="'data:image/jpeg;base64,' + imgDen1" alt="Image 1"></b-img>
-                    </b-col>
-                    <b-col v-if="imgDen2 != null ">
+                    </b-col >
+                    <b-col col md="6" v-if="imgDen2 != null ">
                         <b-img thumbnail fluid :src="'data:image/jpeg;base64,' + imgDen2" alt="Image 2"></b-img>
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col class="p-5">
                         <b-card
                             border-variant="secondary"
-                            header="Denunciado por:"
+                            :header="'Denunciado por: ' + paterno + materno + nombre"
                             header-border-variant="secondary"
                             align="center"
                         >
-                            <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" rounded="circle" alt="Image 2"></b-img>
-                            <b-card-text>{{ correoUsuario }}</b-card-text>
+                            <div class="image-container">
+                                <b-img class="img-fluid" :src="'data:image/jpeg;base64,' + perfil" rounded="circle" alt="Image 2"></b-img>
+                            </div>
+                            <b-card-text> Correo: {{ correoUsuario }}</b-card-text>
+                            <b-card-text>Direccion: {{ direccion }}</b-card-text>
+                            <b-card-text>Cedula identidad: {{ ci }}</b-card-text>
+                            
                         </b-card>
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col col md="8">
+            <b-col col md="7" class="p-3">
                 <b-form @submit="onSubmit"  v-if="show">
                  <b-row>
                     <b-form-group
@@ -75,19 +78,15 @@
                             ></b-form-select>
                         </b-form-group>
                     </b-col>
-                    <b-col>
-                        <b-form-group
-                        id="input-group-ubicacion"
-                        label="Ubicacion"
-                        label-for="input-ubicacion"
-                        >
-                            <b-form-input
-                            id="input-ubicacion"
-                            v-model="form.ubicacion"
-                            type="url"
-                            placeholder=""
-                            ></b-form-input>
-                        </b-form-group>
+                    <b-col class="py-4">
+                        <b-button @click="openModal">Ver mapa</b-button>
+                        <b-modal v-model="modalShow" @shown="initMap">
+                            <b-col class="col col-md-8">
+                                <b-row class="px-5">
+                                    <div ref="googleMap" class="google-map"></div>
+                                </b-row>
+                            </b-col>
+                        </b-modal>
 
                         <b-form-group id="input-group-tipo" label="Tipo" label-for="select-tipo">
                             <b-form-select
@@ -103,16 +102,19 @@
                     <b-form-group
                     id="input-group-comentario"
                     label="Comentario de respuesta"
-                    label-for="input-comentario"
+                    label-for="textarea-comentario"
                     >
-                        <b-form-input 
-                            id="input-comentario" 
-                            v-model="comentario" 
-                            placeholder="Escribir un comentario"
-                        ></b-form-input>
+                        <b-form-textarea
+                            id="textarea-comentario"
+                            placeholder="ingresa un comentario"
+                            v-model="form.comentario"
+                            rows="3"
+                            no-resize
+                        ></b-form-textarea>
                     </b-form-group>
-                    
+                    <b-button type="submit" variant="primary">Actualizar estado</b-button>
                  </b-row>
+
                 </b-form>
             </b-col>
         </b-row>
@@ -124,7 +126,19 @@
   import axios from 'axios';
     export default {
       data() {
-        return { 
+        return {
+            mapOptions: {
+                center: { lat: -17.7831936, lng: -63.1701504 },
+                zoomControl: true,
+                zoom: 13,
+                gestureHandling: "cooperative",
+            },
+            locations: {
+                imgClusterUrl:
+                "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                markers: [],
+            },
+
             form: {
                 titulo:'',
                 descripcion:'',
@@ -138,9 +152,19 @@
             tipos:[],
             imgDen1: '',
             imgDen2: '',
+
             correoUsuario: '',
+            paterno: '',
+            materno: '',
+            nombre: '',
+            direccion: '',
+            perfil: '',
+            ci:'',
+
             show: true,
-            comentario:''
+            comentario:'',
+            //modal 
+            modalShow: false
         }
       },
       mounted() {
@@ -159,6 +183,42 @@
         
       },
       methods:{
+        openModal(){
+            this.modalShow = true;
+            this.initMap();
+        },
+        initMap() {
+            const { imgClusterUrl, markers } = this.locations;
+            const map = new google.maps.Map(this.$refs.googleMap, {
+                ...this.mapOptions,
+            });
+            const infoWindow = new google.maps.InfoWindow();
+            
+            const position = new google.maps.LatLng(
+                parseFloat(this.locations.markers.denLat),
+                parseFloat(this.locations.markers.denLng)
+            );
+            
+            const marker = new google.maps.Marker({
+                position,
+                map,
+                icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+            });
+
+            // Agregar evento click al marcador para mostrar el infoWindow
+            marker.addListener("click", () => {
+                const content = `
+                <div>
+                    <h5>Título del marcador</h5>
+                    <p>Otra información del marcador</p>
+                </div>
+                `;
+                infoWindow.setContent(content);
+                infoWindow.open(map, marker);
+            });
+
+            new MarkerClusterer(map, [marker], { imagePath: imgClusterUrl });
+        },
         onSubmit(event){
             console.log('eviando')
         },
@@ -171,12 +231,13 @@
             })
             .then(response => {
                 // Aquí puedes manejar la respuesta de la solicitud POST
-                console.log(response.data.data.den.denTitulo);
+                const denuncias = response.data.data.den;
+                
                 this.form.titulo = response.data.data.den.denTitulo
                 this.form.descripcion = response.data.data.den.denDescripcion
                 const fecha = new Date(response.data.data.den.denFecha);
                 this.form.fecha = fecha;
-                this.form.ubicacion = "google.maps.com";
+ 
 
                 const estadoSeleccionado = this.estados.find(
                     estado => estado.value === response.data.data.den.denEstado
@@ -190,16 +251,57 @@
                 );
                 console.log(tipoSeleccionado);
                 if (tipoSeleccionado) {    
-                    this.form.tipo = tipoSeleccionado;
+                    this.form.tipo = tipoSeleccionado.value;
                 }
+
                 this.imgDen1 = response.data.data.denImagenes[0];
                 this.imgDen2 = response.data.data.denImagenes[1];
                 this.correoUsuario = response.data.data.den.denUsu;
-            })
+                this.fetchDetalleDenunciante();
+                    this.locations.markers = {
+                        denLat: denuncias.denLat,
+                        denLng: denuncias.denLng,}
+                    }
+
+            )
             .catch(error => {
                 console.error(error);
+            });
+        },
+        fetchDetalleDenunciante(){ 
+            console.log(this.correoUsuario);
+            const usuEmail = this.correoUsuario;
+            axios.post('https://denunciangows.fly.dev/api/propietarioDen', { usuEmail }, {
+            headers: {
+                'Content-Type': 'application/json'
+                }
+            })
+            .then(response =>{
+                const denunciante = response.data.data;
+                console.log(response.data.data);
+                this.paterno = denunciante.usuPaterno;
+                this.materno = denunciante.usuMaterno;
+                this.nombre = denunciante.usuNombre;
+                this.ci  = denunciante.usuCI;
+                this.direccion = denunciante.usuDireccion;
+                this.perfil =   denunciante.usuFoto;
+
+            })
+            .catch(error => {
+
             });
         }
       }
     }
   </script>
+<style>
+    .google-map {
+        width: 2024px;
+        height: 500px;
+    }
+    .image-container {
+    max-width: 150px; /* Ajusta el tamaño máximo deseado */
+    height: auto; /* Ajusta la altura automáticamente */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    }
+</style>
