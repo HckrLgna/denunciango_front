@@ -13,29 +13,37 @@
         @sliding-start="onSlideStart"
         @sliding-end="onSlideEnd"
       >
+      
         <!-- Text slides with image -->
-        <b-carousel-slide
+        <b-carousel-slide>
+        <!-- <b-carousel-slide
           caption="Bienvenido al portal de denuncias del"
           text="GOBIERNO AUTONOMO MUNICIPAL DE SANTA CRUZ DE LA SIERRA"
-        >
+        > -->
+        <h4>Bienvenido al portal de denuncias del</h4>
+        <h3>GOBIERNO AUTONOMO MUNICIPAL DE SANTA CRUZ DE LA SIERRA</h3>
+        <h5>Solidario, moderno y participativo</h5>
         <template #img>
             <img
               class="d-block  "
               width="2048"
-              height="500"
+              height="430"
               src="../assets/portada2.jpg"
               alt="image slot"
             >
           </template>
       </b-carousel-slide>
-  
-        <!-- Slides with custom text -->
-        <b-carousel-slide>
+      
+      <!-- Slides with custom text -->
+      <b-carousel-slide>
+          <h4>Bienvenido al portal de denuncias del</h4>
+          <h3>GOBIERNO AUTONOMO MUNICIPAL DE SANTA CRUZ DE LA SIERRA</h3>
+          <h5>Solidario, moderno y participativo</h5>
           <template #img>
             <img
               class="d-block  "
               width="2048"
-              height="500"
+              height="430"
               src="../assets/portada1.jpg"
               alt="image slot"
             >
@@ -48,11 +56,14 @@
         <!-- Slides with img slot -->
         <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
         <b-carousel-slide>
+          <h4>Bienvenido al portal de denuncias del</h4>
+          <h3>GOBIERNO AUTONOMO MUNICIPAL DE SANTA CRUZ DE LA SIERRA</h3>
+          <h5>Solidario, moderno y participativo</h5>
           <template #img>
             <img
               class="d-block  "
               width="2048"
-              height="500"
+              height="430"
               src="../assets/image 12.png"
               alt="image slot"
             >
