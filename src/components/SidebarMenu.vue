@@ -125,13 +125,13 @@
               icon: 'bx-folder',
             },
             {
-              link: '#',
-              name: 'Denuncias',
+              link: 'type',
+              name: 'Tipos de Denuncias ',
               tooltip: 'denuncias',
               icon: 'bx-chat',
             },
             {
-              link: '#',
+              link: 'map-complaint',
               name: 'Mapa',
               tooltip: 'Order',
               icon: 'bx-cart-alt',

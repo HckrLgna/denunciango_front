@@ -40,13 +40,13 @@
                     </b-form-group>
                     <b-form-group
                         id="input-group-nombre"
-                        label="Nombre del area"
+                        label="Celular del area"
                         label-for="input-nombre"
                         >
                             <b-form-input
                                 id="input-celular"
                                 v-model="form.celular"
-                                type="number"
+                                type="text"
                                 placeholder="Ingrese el numero de celular del area"
                                 required
                             ></b-form-input>
@@ -135,7 +135,12 @@
                 
             },
             tipo:[],
-            tipos: []
+            tipos: [],
+            nombreDenuncia: '',
+            nameState: null,
+            submittedNames: [],
+            descripcionDenuncia:'',
+
         }
       },
       mounted() {
@@ -153,6 +158,34 @@
         
       },
       methods:{
+        checkFormValidity() {
+            const valid = this.$refs.form.checkValidity()
+            this.nameState = valid
+            return valid
+        },
+        resetModal() {
+            this.nombreDenuncia = ''
+            this.nameState = null
+            this.descripcionDenuncia=''
+        },
+        handleOk(bvModalEvent) {
+            // Prevent modal from closing
+            bvModalEvent.preventDefault()
+            // Trigger submit handler
+            this.handleSubmit()
+        },
+        handleSubmit() {
+            // Exit when the form isn't valid
+            if (!this.checkFormValidity()) {
+            return
+            }
+            // Push the name to submitted names
+            this.submittedNames.push(this.nombreDenuncia)
+            // Hide the modal manually
+            this.$nextTick(() => {
+            this.$bvModal.hide('modal-prevent-closing')
+            })
+        },
         onSubmit(event){
             console.log('eviando')
             event.preventDefault();

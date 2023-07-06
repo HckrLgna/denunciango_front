@@ -59,7 +59,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../views/EditComplaintView.vue')
   },
   {
-    path: '/map-complaint/:id',
+    path: '/map-complaint/',
     name: 'map-complaint',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -99,6 +99,23 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "login" */ '../views/RegisterAreaView.vue')
+  },
+  {
+    path: '/type',
+    name: 'type',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "login" */ '../views/TypeComplaintView.vue')
+  }
+  ,
+  {
+    path: '/type/register',
+    name: 'type.register',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "login" */ '../views/RegisterTypeComplaint.vue')
   }
   
 ]

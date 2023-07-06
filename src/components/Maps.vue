@@ -134,9 +134,8 @@ export default {
         ...this.mapOptions,
       });
       const infoWindow = new google.maps.InfoWindow();
-      console.log(markers.denLat)
       const googleMarkers = markers.map((marker) => {
-        const { denLat, denLng} = marker;
+        const { denLat, denLng, denTdTitulo, denTitulo, denTdTipo ,denFecha, denEstTitulo} = marker;
         const position = new google.maps.LatLng(
           parseFloat(denLat),
           parseFloat(denLng)
@@ -221,12 +220,16 @@ export default {
             return true;
           });
 
-          this.locations.markers = denuncias.map((denuncia) => ({
+          this.locations.markers = filteredMarkers.map((denuncia) => ({
             denId: denuncia.denId,
             denLat: denuncia.denLat,
-            
+            denLng: denuncia.denLng,
+            denTdTitulo: denuncia.denTdTitulo,
+            denTitulo: denuncia.denTitulo,
+            denTdTipo: denuncia.denTipo,
+            denEstTitulo: denuncia.denEstTitulo,
+            denFecha: denuncia.denFecha
           }));
-          console.log(this.markers)
           this.initMap();
           
         })
@@ -301,4 +304,3 @@ export default {
       background-color: #3a044b; /* Color de fondo personalizado */
   }
 </style>
-  
