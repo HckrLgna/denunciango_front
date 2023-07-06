@@ -1,16 +1,16 @@
 <template>
     <div>
         <main class="form-signin w-100 m-auto">
-            <form>
+            <form @submit="login">
                 <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
                 <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <input type="email" class="form-control" id="floatingInput" v-model="email" placeholder="name@example.com">
                 <label for="floatingInput">Email address</label>
                 </div>
                 <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" class="form-control" id="floatingPassword" v-model="password" placeholder="Password">
                 <label for="floatingPassword">Password</label>
                 </div>
 
@@ -26,6 +26,39 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    login(event) {
+      event.preventDefault();
+
+      const data = {
+        usuEmail: this.email,
+        usuPass: this.password,
+      };
+
+      axios.post('http://cuidomivoto.com/api/usuLoginTrabajador', data)
+        .then(response => {
+          console.log(response.data);
+          // Aquí puedes manejar la respuesta de la solicitud POST
+          if(response.data.ok ==true ){
+            this.$router.push('/imbox');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Aquí puedes manejar los errores de la solicitud POST
+        });
+    },
+  },
+};
 </script>
 <style>
 html,
