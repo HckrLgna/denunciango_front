@@ -14,7 +14,7 @@
                 ></b-pagination>
             </b-col>
             <b-col col md="3" >
-                <b-button :to="{name: 'user.register'}">Agregar Area</b-button>
+                <b-button :to="{name: 'area.register'}">Agregar Area</b-button>
             </b-col>
             
         </b-row>
