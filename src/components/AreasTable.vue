@@ -48,15 +48,16 @@ import axios from 'axios'
           perPage: 3,
           currentPage: 1,
           items: [
-            {id:1 , apellidos: 'El parque del km 6 esta descuidado', nombres: '23/06/2023-11:59', area: 'Parques y jardines', ver: 'mapa'},
+            {id: 'areId' , nombre: 'areNombre', descripcion: 'areDesc', areCelular: 'areCelular ', areDireccion: 'mapa'},
            
           ],
           fields: [
                 { key: 'id', label: 'ID' },
-                { key: 'apellidos', label: 'Apellidos' },
-                { key: 'nombres', label: 'Nombres' },
-                { key: 'area', label: 'Area' },
-                { key: 'ver', label: 'Ver', sortable: false  },
+                { key: 'areNombre', label: 'Nombres' },
+                { key: 'areDesc', label: 'descripcion' },
+                { key: 'areCelular', label: 'Area' },
+                { key: 'areDireccion', label: 'Direccion'  },
+                
             ],
           value: '',
           
@@ -65,7 +66,11 @@ import axios from 'axios'
         }
       },
       mounted() {
-            axios
+            axios.get('http://denunciangows.fly.dev/api/areObtenerAreas')
+                .then(response=>{
+                    const areas = response.data.data;
+                    this.items = areas;
+                })
         },
       methods: {
          
