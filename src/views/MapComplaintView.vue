@@ -1,6 +1,6 @@
 <template>
     <div class="map-complaint">
-      <Header/>
+      <Header />
       <b-row>
         <SidebarMenu :isMenuOpen="true" profileImg="" />
         <b-col>
