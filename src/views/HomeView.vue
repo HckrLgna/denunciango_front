@@ -2,7 +2,8 @@
   <div class="home">
     <Header/>
     <Carrusel></carrusel>
-    <Footer/>
+    <CardsHome />
+      <Footer></Footer>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import Header from '@/components/Header.vue';
 import Carrusel from '../components/Carrusel.vue';
 import Footer from '../components/Footer.vue';
+import CardsHome from '../components/CardsHome.vue';
 
 export default {
   name: 'HomeView',
@@ -18,6 +20,7 @@ export default {
     Header,
     Carrusel,
     Footer,
+    CardsHome,
   }
 }
 </script>
