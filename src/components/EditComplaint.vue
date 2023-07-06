@@ -189,8 +189,7 @@
                     tipo => tipo.value === response.data.data.den.denTipo
                 );
                 console.log(tipoSeleccionado);
-                if (tipoSeleccionado) {
-                    
+                if (tipoSeleccionado) {    
                     this.form.tipo = tipoSeleccionado;
                 }
                 this.imgDen1 = response.data.data.denImagenes[0];
