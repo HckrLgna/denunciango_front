@@ -1,17 +1,19 @@
 <template>
     <div>
         <main class="form-signin w-100 m-auto">
-            <form>
-                <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <form @submit="onSubmit">
+                <div class="text-center">
+                  <b-avatar src="https://i.pinimg.com/564x/a6/de/32/a6de325e4daf6807b8dbae3a5557ff3c.jpg" size="5rem"></b-avatar>
+                </div>
+                <h1 class="mt-5 h3 mb-3 fw-normal text-center">Iniciar Sesion</h1>
 
                 <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                  <label for="email">Correo electronico</label>
                 </div>
                 <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                  <label for="password">Contraseña</label>
                 </div>
 
                 <div class="form-check text-start my-3">
@@ -25,8 +27,33 @@
         </main>
     </div>
 </template>
+
+
 <script>
+  export default {
+    data() {
+      return { 
+          form: {
+            email: '',
+            password: ''
+          },
+          areas: [],
+          show: true,
+      }
+    },
+    computed: {
+      
+    },
+    methods:{
+      onSubmit(event){
+          console.log('eviando')
+      }
+    }
+  }
+
 </script>
+
+
 <style>
 html,
 body {
