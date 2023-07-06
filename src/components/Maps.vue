@@ -146,7 +146,7 @@ export default {
           3: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
           4: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         };
-
+        
         const icon = markerIcons[denTdTipo] || null;
 
         const googleMarker = new google.maps.Marker({

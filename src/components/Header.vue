@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-navbar toggleable="md" type="dark" variant="dark" class="p-3">
+        <b-navbar toggleable="md" type="dark" class="p-3 bg-lila">
             <b-container>
                 <img src="../assets/logo.png" alt="logo" height="50px" width="50px">
                 <b-navbar-brand :to="{name: 'home'}">Denunciango web</b-navbar-brand>
@@ -29,3 +29,10 @@
         name: 'Header'
     }
 </script>
+
+<style>
+    .bg-lila {
+        background-color: #6c3f70; /* Código de color para el tono lila */
+        color: white; /* Opcional: Cambia el color del texto para que sea legible en el fondo lila */
+    }
+</style>
