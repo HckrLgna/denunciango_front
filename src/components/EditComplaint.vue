@@ -38,87 +38,87 @@
             </b-col>
             <b-col col md="7" class="p-3">
                 <b-form @submit="onSubmit"  v-if="show">
-                 <b-row>
-                    <b-form-group
-                    id="input-group-titulo"
-                    label="Titulo"
-                    label-for="input-titulo"
-                    >
-                    <b-form-input
-                    id="input-titulo"
-                    v-model="form.titulo"
-                    type="text"
-                    placeholder=""
-                    value="asd"
-                    required
-                    ></b-form-input>
-                    </b-form-group>
-
-                    <b-form-group id="input-group-descripcion" label="Descripcion" label-for="textarea-descripcion">
-                        <b-form-textarea
-                            id="textarea-descripcion"
-                            placeholder="Fixed height textarea"
-                            v-model="form.descripcion"
-                            rows="3"
-                            no-resize
-                        ></b-form-textarea>
-                    </b-form-group>
-                 </b-row>
-                 <b-row>
-                    <b-col>
-                        <label for="fecha-datepicker">Fecha:</label>
-                        <b-form-datepicker id="fecha-datepicker" v-model="form.fecha" class="mb-2"></b-form-datepicker>
-
-                        <b-form-group id="input-group-estado" label="Estado" label-for="select-estado">
-                            <b-form-select
-                            id="select-estado"
-                            v-model="form.estado"
-                            :options="estados"
-                            required
-                            ></b-form-select>
+                    <b-row>
+                        <b-form-group
+                        id="input-group-titulo"
+                        label="Titulo"
+                        label-for="input-titulo"
+                        >
+                        <b-form-input
+                        id="input-titulo"
+                        v-model="form.titulo"
+                        type="text"
+                        placeholder=""
+                        value="asd"
+                        required
+                        ></b-form-input>
                         </b-form-group>
-                    </b-col>
-                    <b-col class="py-4">
-                        <b-button @click="openModal">Ver mapa</b-button>
-                        <b-modal v-model="modalShow" @shown="initMap">
-                            <b-col class="col ">
-                                <b-row class="px-5">
-                                    <div ref="googleMap" class="google-map"></div>
-                                </b-row>
-                            </b-col>
-                        </b-modal>
 
-                        <b-form-group id="input-group-tipo" label="Tipo" label-for="select-tipo">
-                            <b-form-select
-                            id="select-tipo"
-                            v-model="form.tipo"
-                            :options="tipos"
-                            ></b-form-select>
+                        <b-form-group id="input-group-descripcion" label="Descripcion" label-for="textarea-descripcion">
+                            <b-form-textarea
+                                id="textarea-descripcion"
+                                placeholder="Fixed height textarea"
+                                v-model="form.descripcion"
+                                rows="3"
+                                no-resize
+                            ></b-form-textarea>
+                        </b-form-group>
+                    </b-row>
+                    <b-row>
+                        <b-col>
+                            <label for="fecha-datepicker">Fecha:</label>
+                            <b-form-datepicker id="fecha-datepicker" v-model="form.fecha" class="mb-2"></b-form-datepicker>
+
+                            <b-form-group id="input-group-estado" label="Estado" label-for="select-estado">
+                                <b-form-select
+                                id="select-estado"
+                                v-model="form.estado"
+                                :options="estados"
+                                required
+                                ></b-form-select>
+                            </b-form-group>
+                        </b-col>
+                        <b-col class="py-4">
+                            <b-button @click="openModal">Ver mapa</b-button>
+                            <b-modal v-model="modalShow" @shown="initMap">
+                                <b-col class="col ">
+                                    <b-row class="px-5">
+                                        <div ref="googleMap" class="google-map"></div>
+                                    </b-row>
+                                </b-col>
+                            </b-modal>
+
+                            <b-form-group id="input-group-tipo" label="Tipo" label-for="select-tipo">
+                                <b-form-select
+                                id="select-tipo"
+                                v-model="form.tipo"
+                                :options="tipos"
+                                ></b-form-select>
+                            </b-form-group>
+                            
+                        </b-col>
+                    </b-row>   
+                    <b-row>
+                        <b-form-group
+                        id="input-group-comentario"
+                        label="Comentario de respuesta"
+                        label-for="textarea-comentario"
+                        >
+                            <b-form-textarea
+                                id="textarea-comentario"
+                                placeholder="ingresa un comentario"
+                                v-model="form.comentario"
+                                rows="3"
+                                no-resize
+                            ></b-form-textarea>
                         </b-form-group>
                         
-                    </b-col>
-                 </b-row>   
-                 <b-row>
-                    <b-form-group
-                    id="input-group-comentario"
-                    label="Comentario de respuesta"
-                    label-for="textarea-comentario"
-                    >
-                        <b-form-textarea
-                            id="textarea-comentario"
-                            placeholder="ingresa un comentario"
-                            v-model="form.comentario"
-                            rows="3"
-                            no-resize
-                        ></b-form-textarea>
-                    </b-form-group>
-                    
-                    <b-form-group class="p-3">
-                         <b-button type="submit" variant="primary">Aceptar</b-button>
-                        <b-button type="reset" variant="danger">Rechazar</b-button>
-                    </b-form-group>
-                       
-                 </b-row>
+                        <b-form-group class="p-3">
+                            <b-button @click="aceptar"  variant="primary">Aceptar</b-button>
+                            <b-button  @click="rechazar" variant="danger">Rechazar</b-button>
+                        </b-form-group>
+                        
+                    </b-row>
 
                 </b-form>
             </b-col>
@@ -167,7 +167,6 @@
             ci:'',
 
             show: true,
-            comentario:'',
             //modal 
             modalShow: false
         }
@@ -225,7 +224,7 @@
             new MarkerClusterer(map, [marker], { imagePath: imgClusterUrl });
         },
         onSubmit(event){
-            console.log('eviando')
+            event.preventDefault();
         },
         fetchDetalleDenuncia(){
             const denId = this.$route.params.id;
@@ -254,7 +253,6 @@
                 const tipoSeleccionado = this.tipos.find(
                     tipo => tipo.value === response.data.data.den.denTipo
                 );
-                console.log(tipoSeleccionado);
                 if (tipoSeleccionado) {    
                     this.form.tipo = tipoSeleccionado.value;
                 }
@@ -274,7 +272,6 @@
             });
         },
         fetchDetalleDenunciante(){ 
-            console.log(this.correoUsuario);
             const usuEmail = this.correoUsuario;
             axios.post('https://denunciangows.fly.dev/api/propietarioDen', { usuEmail }, {
             headers: {
@@ -283,7 +280,6 @@
             })
             .then(response =>{
                 const denunciante = response.data.data;
-                console.log(response.data.data);
                 this.paterno = denunciante.usuPaterno;
                 this.materno = denunciante.usuMaterno;
                 this.nombre = denunciante.usuNombre;
@@ -295,7 +291,63 @@
             .catch(error => {
 
             });
-        }
+        },
+        aceptar() {
+            if(this.form.comentario!=""){
+                console.log("entro a aceptar")
+                console.log(this.form.comentario)
+                const denId = this.$route.params.id;
+              
+                const data = {
+                    drDen : denId,
+                    drFunc : "Angel ",
+                    drComentario : this.form.comentario
+                }
+
+                axios
+                    .post("http://cuidomivoto.com/api/denAceptarDen", data, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                    })
+                    .then(response => {
+                    console.log(response.data);
+                    })
+                    .catch(error => {
+                    console.error(error);
+                    });
+
+                    console.log(data);
+            }
+        },
+        rechazar() {
+            if(this.form.comentario!=""){
+                console.log("entro a rechazar")
+                console.log(this.form.comentario)
+                const denId = this.$route.params.id;
+              
+                const data = {
+                    drDen : denId,
+                    drFunc : "",
+                    drComentario : this.form.comentario
+                }
+
+                axios
+                    .post("http://cuidomivoto.com/api/denRechazarDen", data, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                    })
+                    .then(response => {
+                    console.log(response.data);
+                    })
+                    .catch(error => {
+                    console.error(error);
+                    });
+
+                    console.log(data);
+            }
+        },
       }
     }
   </script>
