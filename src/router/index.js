@@ -93,7 +93,7 @@ const routes = [
   }
   ,
   {
-    path: '/area',
+    path: '/area/register',
     name: 'area.register',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

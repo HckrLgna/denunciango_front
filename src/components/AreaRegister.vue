@@ -9,7 +9,7 @@
         <b-row>
             <b-col col md="5" class="p-3">
                 <div>
-                    <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image"></b-img>
+                    <img src="../assets/img_area.png" class="w-100" fluid alt="Responsive image">
                 </div>
             </b-col>
             <b-col col md="7" class="p-3">
@@ -64,6 +64,52 @@
                             required
                         ></b-form-input>
                     </b-form-group>
+                    <b-form-group
+                        label="Lista de tipos de denuncia"
+                        v-slot="{ ariaDescribedby }"
+                        >
+                        <b-form-checkbox-group
+                            v-model="tipo"
+                            :options="tipos"
+                            :aria-describedby="ariaDescribedby"
+                            name="flavour-2a"
+                            stacked
+                        ></b-form-checkbox-group>
+                        <b-link v-b-modal.modal-prevent-closing>Agregar Nuevo</b-link>
+                        <b-modal
+                            id="modal-prevent-closing"
+                            ref="modal"
+                            title="Nuevo tipo de denuncia"
+                            @show="resetModal"
+                            @hidden="resetModal"
+                            @ok="handleOk"
+                            >
+                            <form ref="form" @submit.stop.prevent="handleSubmit">
+                                <b-form-group
+                                    label="Nombre del tipo de denuncia"
+                                    label-for="nombre-input"
+                                    invalid-feedback="El nombre es requerido"
+                                    :state="nameState"
+                                    >
+                                    <b-form-input
+                                        id="nombre-input"
+                                        v-model="nombreDenuncia"
+                                        :state="nameState"
+                                        required
+                                    ></b-form-input>
+                                </b-form-group>
+                                <b-form-group id="input-group-descripcion" label="Descripcion" label-for="descripcion-textarea">
+                                    <b-form-textarea
+                                        id="descripcion-textarea"
+                                        placeholder="Ingrese descripcion del area"
+                                        v-model="descripcionDenuncia"
+                                        rows="3"
+                                        no-resize
+                                    ></b-form-textarea>
+                                </b-form-group>
+                            </form>
+                        </b-modal>
+                    </b-form-group>
 
                         <b-form-group class="p-3">
                             <b-button type="submit" variant="primary">Registrar</b-button>
@@ -85,21 +131,23 @@
                 nombre:'',
                 descripcion:'',
                 celular:'',
-                direccion:''
+                direccion:'',
+                
             },
+            tipo:[],
+            tipos: []
         }
       },
       mounted() {
-        axios.get('https://denunciangows.fly.dev/api/obtenerDenuncias')
+        axios.get('https://denunciangows.fly.dev/api/tiposDenuncia')
             .then(response => {
-                this.estados = response.data.data.ests.map(est => ({ value: est.estId, text: est.estTitulo }));
-                this.tipos = response.data.data.tds.map(td => ({ value: td.tdId, text: td.tdTitulo }));
+                console.log(response.data.data);
+                this.tipos = response.data.data.map(dat => ({value: dat.tdId, text: dat.tdTitulo}) );
             })
             .catch(error => {
                 console.error(error);
         });
 
-        this.fetchDetalleDenuncia();
       },
       computed: {
         
@@ -107,88 +155,30 @@
       methods:{
         onSubmit(event){
             console.log('eviando')
-            axios.post('http://cuidomivoto.com/api/areRegistrarArea',)
-        },
-        fetchDetalleDenuncia(){
-            const denId = this.$route.params.id;
-            axios.post('https://denunciangows.fly.dev/api/obtenerDetDen/', { denId }, {
-            headers: {
-                'Content-Type': 'application/json'
-                }
-            })
+            event.preventDefault();
+            const data = {
+                area: {
+                areNombre: this.form.nombre,
+                areDesc: this.form.descripcion,
+                areCelular: this.form.celular,
+                areDireccion: this.form.direccion
+                },
+                tipos: this.tipo.map(item => ({ atTd: item }))
+            };
+            axios
+            .post('http://cuidomivoto.com/api/areRegistrarArea', data)
             .then(response => {
-                // Aquí puedes manejar la respuesta de la solicitud POST
-                const denuncias = response.data.data.den;
-                
-                this.form.titulo = response.data.data.den.denTitulo
-                this.form.descripcion = response.data.data.den.denDescripcion
-                const fecha = new Date(response.data.data.den.denFecha);
-                this.form.fecha = fecha;
- 
-
-                const estadoSeleccionado = this.estados.find(
-                    estado => estado.value === response.data.data.den.denEstado
-                );
-
-                if (estadoSeleccionado) {
-                    this.form.estado = estadoSeleccionado.value;
-                }
-                const tipoSeleccionado = this.tipos.find(
-                    tipo => tipo.value === response.data.data.den.denTipo
-                );
-                console.log(tipoSeleccionado);
-                if (tipoSeleccionado) {    
-                    this.form.tipo = tipoSeleccionado.value;
-                }
-
-                this.imgDen1 = response.data.data.denImagenes[0];
-                this.imgDen2 = response.data.data.denImagenes[1];
-                this.correoUsuario = response.data.data.den.denUsu;
-                this.fetchDetalleDenunciante();
-                    this.locations.markers = {
-                        denLat: denuncias.denLat,
-                        denLng: denuncias.denLng,}
-                    }
-
-            )
+                console.log(response.data);
+            })
             .catch(error => {
                 console.error(error);
             });
+                console.log(data);
         },
-        fetchDetalleDenunciante(){ 
-            console.log(this.correoUsuario);
-            const usuEmail = this.correoUsuario;
-            axios.post('https://denunciangows.fly.dev/api/propietarioDen', { usuEmail }, {
-            headers: {
-                'Content-Type': 'application/json'
-                }
-            })
-            .then(response =>{
-                const denunciante = response.data.data;
-                console.log(response.data.data);
-                this.paterno = denunciante.usuPaterno;
-                this.materno = denunciante.usuMaterno;
-                this.nombre = denunciante.usuNombre;
-                this.ci  = denunciante.usuCI;
-                this.direccion = denunciante.usuDireccion;
-                this.perfil =   denunciante.usuFoto;
-
-            })
-            .catch(error => {
-
-            });
-        }
+         
       }
     }
   </script>
 <style>
-    .google-map {
-        width: 2024px;
-        height: 500px;
-    }
-    .image-container {
-    max-width: 150px; /* Ajusta el tamaño máximo deseado */
-    height: auto; /* Ajusta la altura automáticamente */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-    }
+ 
 </style>
