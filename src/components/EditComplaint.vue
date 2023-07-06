@@ -81,7 +81,7 @@
                     <b-col class="py-4">
                         <b-button @click="openModal">Ver mapa</b-button>
                         <b-modal v-model="modalShow" @shown="initMap">
-                            <b-col class="col col-md-8">
+                            <b-col class="col ">
                                 <b-row class="px-5">
                                     <div ref="googleMap" class="google-map"></div>
                                 </b-row>
@@ -112,7 +112,12 @@
                             no-resize
                         ></b-form-textarea>
                     </b-form-group>
-                    <b-button type="submit" variant="primary">Actualizar estado</b-button>
+                    
+                    <b-form-group class="p-3">
+                         <b-button type="submit" variant="primary">Aceptar</b-button>
+                        <b-button type="reset" variant="danger">Rechazar</b-button>
+                    </b-form-group>
+                       
                  </b-row>
 
                 </b-form>

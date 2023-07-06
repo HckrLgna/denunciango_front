@@ -2,7 +2,7 @@
   <div class="home">
     <Header/>
     <Carrusel></carrusel>
-    <footer></footer>
+    <Footer/>
   </div>
 </template>
 

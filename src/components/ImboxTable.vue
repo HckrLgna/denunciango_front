@@ -72,9 +72,9 @@
                          </b-dropdown>
                     </b-col>
                     <b-col col md="6">
-                        <b-button @click="openModal">Ver seleccion</b-button>
-                        <b-modal v-model="modalShow" @shown="initMap">
-                            <b-col class="col col-md-8">
+                        <b-button v-b-modal.modal-xl @click="openModal">Ver seleccion</b-button>
+                        <b-modal size="xl" v-model="modalShow" @shown="initMap">
+                            <b-col class="col ">
                                 <b-row class="px-5">
                                     <div ref="googleMap" class="google-map"></div>
                                 </b-row>
@@ -87,30 +87,25 @@
             
         </b-row>
         <b-row>
-            <div class="overflow-auto"> 
-            <b-table
-                id="my-table"
-                :items="items"
-                :fields="fields"
-                :sort-by.sync="sortBy"
-                :sort-desc.sync="sortDesc"
-                :per-page="perPage"
-                :current-page="currentPage"
-                medium
-            >
-            <template v-slot:cell(selected)="row">
-                <input type="checkbox" :checked="selected.includes(row.item.denId)" @input="toggleSelected(row.item.denId)">
-            </template>
+            <div class="overflow-auto px-3"> 
+                <b-table
+                    id="my-table"
+                    :items="items"
+                    :fields="fields"
+                    :sort-by.sync="sortBy"
+                    :sort-desc.sync="sortDesc"
+                    :per-page="perPage"
+                    :current-page="currentPage"
+                    medium
+                >
+                    <template v-slot:cell(selected)="row">
+                        <input type="checkbox" :checked="selected.includes(row.item.denId)" @input="toggleSelected(row.item.denId)">
+                    </template>
 
-            <template v-slot:cell(editar)="row">
-                <router-link :to="`/complaint/${row.item.denId}`">Editar</router-link>
-            </template>
-            <template v-slot:cell(ver)="row">
-                <router-link :to="`/map-complaint/${row.item.denId}`">Ver mapa</router-link>
-            </template>
-            
-
-            </b-table>
+                    <template v-slot:cell(editar)="row">
+                        <router-link :to="`/complaint/${row.item.denId}`">Editar</router-link>
+                    </template>
+                </b-table>
             </div>
         </b-row>
         <div>
@@ -147,7 +142,7 @@ import axios from 'axios';
                 { key: 'denTdTitulo', label: 'Tipo', sortable: false },
                 { key: 'denEstTitulo', label: 'Estado', sortable: false},
                 { key: 'editar', label: 'Editar',sortable: false },
-                { key: 'ver', label: 'Ver', sortable: false  },
+                 
             ],
           value: '',
           filterFechaInicio: null, // Fecha de inicio seleccionada para filtrar
@@ -382,7 +377,7 @@ import axios from 'axios';
         margin-left: 30px;
     }
     .google-map {
-        width: 2024px;
+        width: 100%;
         height: 500px;
     }
   </style>
