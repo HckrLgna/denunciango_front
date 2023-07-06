@@ -3,7 +3,14 @@
     <Header/>
     <Carrusel></carrusel>
     <CardsHome />
-      <Footer></Footer>
+
+    <div class="mx-5 px-3 my-4 justify-content-between">
+      <h3>¿Que es denunciango app?</h3>
+      <p class="fs-5">Es una herramienta fácil y accesible para informar y reportar diferentes tipos de incidentes o situaciones problemáticas que ocurran en la ciudad de Santa Cruz.</p>
+      <img src="../assets/descarga.png" class="w-100" fluid alt="Responsive image">
+    </div>
+
+    <Footer></Footer>
   </div>
 </template>
 
