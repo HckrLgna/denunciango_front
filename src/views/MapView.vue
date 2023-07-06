@@ -10,7 +10,7 @@
   // @ is an alias to /src
   import Header from '@/components/Header.vue';
   import Maps from '../components/Maps.vue';
-import Footer from '../components/Footer.vue';
+  import Footer from '../components/Footer.vue';
   
   export default {
     name: 'MapView',

@@ -1,19 +1,20 @@
 <template>
   <div  >
-    <b-container fluid class="bg-light p-5 ">
-      <b-row class="px-5 py-2 mx-3">
-              <h2>Mapa de denuncias</h2>
-      </b-row>
+    <b-container fluid class="bg-light py-3 px-5 ">
       <b-row>
-        <b-col class="col col-md-4">
-            <b-row class="px-5 py-4 align-items-center">
-            <b-col class="col-4 p-1 h-100">
-              <b-form-group
+        <b-row class="px-3 p-2 mx-3">
+          <h3>Mapa de denuncias</h3>
+        </b-row>
+
+          <b-col class="col col-md-3 mx-5 p-4 align-items-center custom-bg">
+            <h5>Filtros</h5>
+            <b-col class="p-1 w-100">
+              <b-form-group class="w-100" 
                 id="input-group-estado"
                 label="Seleccione un estado:"
                 label-for="input-estado"
               >
-                <b-form-select
+                <b-form-select class="w-100" 
                   id="input-estado"
                   v-model="estado"
                   :options="estados"
@@ -21,13 +22,13 @@
                 ></b-form-select>
               </b-form-group>
             </b-col>
-            <b-col class="col-4 p-1 h-100">
-              <b-form-group
+            <b-col class="p-1 w-100">
+              <b-form-group class="w-100" 
                 id="input-group-tipo"
                 label="Seleccione un tipo:"
                 label-for="input-tipo"
               >
-                <b-form-select
+                <b-form-select class="w-100" 
                   id="input-tipo"
                   v-model="tipo"
                   :options="tipos"
@@ -35,12 +36,12 @@
                 ></b-form-select>
               </b-form-group>
             </b-col>
-            <b-col class="col-6 p-1 h-100">
-              <b-form-group
+            <b-col class="p-1 w-100">
+              <b-form-group class="w-100" 
                 id="input-group-fechaIni"
                 label="Seleccione una fecha inicio:"
                 label-for="input-fechaIni">
-                <b-form-datepicker
+                <b-form-datepicker class="w-100" 
                   id="input-fechaIni"
                   v-model="filterFechaInicio"
                   placeholder="Fecha de inicio"
@@ -49,12 +50,12 @@
               </b-form-group>
             
             </b-col>
-            <b-col class="col-6 p-1 h-100">
-              <b-form-group
+            <b-col class="p-1 w-100">
+              <b-form-group class="w-100" 
                 id="input-group-fechaFin"
                 label="Seleccione una fecha final:"
                 label-for="input-fechaFin">
-                <b-form-datepicker
+                <b-form-datepicker class="w-100" 
                   id="input-fechaFin"
                   v-model="filterFechaFin"
                   placeholder="Fecha fin"
@@ -63,21 +64,22 @@
               </b-form-group>
             </b-col>
         
-          </b-row> 
-          <b-row class="px-5 pb-5" >
-            <b-form-checkbox
-                id="checkbox-1"
-                v-model="status"
-                name="checkbox-1"
-                value="accepted"
-                unchecked-value="not_accepted"
-                @change="handleStatusChange"
-              >
-                Aplicar filtros
-              </b-form-checkbox>
-          </b-row>
-        </b-col> 
-        <b-col class="col col-md-8">
+            <b-col class="w-100 py-3" >
+              <b-form-checkbox
+                  id="checkbox-1"
+                  v-model="status"
+                  name="checkbox-1"
+                  value="accepted"
+                  unchecked-value="not_accepted"
+                  @change="handleStatusChange"
+                >
+                  Aplicar filtros
+                </b-form-checkbox>
+            </b-col>
+          </b-col> 
+
+
+        <b-col class="col">
           <b-row class="px-5">
             <div ref="googleMap" class="google-map"></div>
           </b-row>
@@ -285,10 +287,18 @@ export default {
 };
 </script>
   
-  <style>
-.google-map {
-  width: 1024;
-  height: 500px;
-}
+<style>
+  .google-map {
+    width: 1024;
+    height: 500px;
+  }
+
+  .custom-bg {
+        background-color: #eed7f5; /* Color de fondo personalizado */
+  }
+  
+  .custom-bg2 {
+      background-color: #3a044b; /* Color de fondo personalizado */
+  }
 </style>
   
