@@ -12,10 +12,11 @@
                 <b-navbar-nav>
                     <b-nav-item-dropdown right>
                         <template #button-content>
-                        <em>User</em>
+                        <em>Andres Campos</em>
+
                         </template>
-                        <b-dropdown-item href="#" style="width: 30px;">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                        <b-dropdown-item href="#" style="width: 30px;">Perfil</b-dropdown-item>
+                        <b-dropdown-item href="#">Salir</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </div>

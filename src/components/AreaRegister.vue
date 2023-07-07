@@ -184,7 +184,25 @@
             // Hide the modal manually
             this.$nextTick(() => {
             this.$bvModal.hide('modal-prevent-closing')
+            this.onSubmitTipo();
             })
+        },
+        onSubmitTipo(event){
+            console.log('eviando')
+            const data = {
+                    tdTitulo: this.nombreDenuncia,
+                    tdDesc: this.descripcionDenuncia,   
+            };
+            console.log(data);
+            axios
+            .post('http://cuidomivoto.com/api/tdRegistrarTipoDen', data)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+                console.log(data);
         },
         onSubmit(event){
             console.log('eviando')

@@ -13,7 +13,7 @@
 <script>
     import AreasTable from "@/components/AreasTable.vue";
     import SidebarMenu from "../components/SidebarMenu";
-    import Header from '@/components/Header.vue';
+    import Header from '@/components/HeaderAuth.vue';
     
     export default {
       name: "UsersView",

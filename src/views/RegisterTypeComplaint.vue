@@ -12,7 +12,7 @@
     
     <script>
     import SidebarMenu from "../components/SidebarMenu";
-    import Header from '@/components/Header.vue';
+    import Header from '@/components/HeaderAuth.vue';
     import TypeComplaintRegister from '@/components/TypeComplaintRegister.vue';
  
     export default {

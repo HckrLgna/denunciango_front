@@ -12,7 +12,7 @@
     
     <script>
     import SidebarMenu from "../components/SidebarMenu";
-    import Header from '@/components/Header.vue';
+    import Header from '@/components/HeaderAuth.vue';
     import UserRegister from "@/components/UserRegister.vue";
     export default {
       name: "UsersView",

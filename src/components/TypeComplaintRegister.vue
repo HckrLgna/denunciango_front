@@ -13,7 +13,7 @@
                 </div>
             </b-col>
             <b-col col md="7" class="p-3">
-                <form ref="form" @submit="onSubmit" @submit.stop.prevent="handleSubmit">
+                <form ref="form" @submit="onSubmit" >
                     <b-form-group
                                     label="Nombre del tipo de denuncia"
                                     label-for="nombre-input"
@@ -80,11 +80,10 @@
             console.log('eviando')
             event.preventDefault();
             const data = {
-                area: {
-                    tdTitulo: this.form.nombre,
-                    tdDesc: this.form.descripcion,   
-                },
+                    tdTitulo: this.nombreDenuncia,
+                    tdDesc: this.descripcionDenuncia,   
             };
+            console.log(data);
             axios
             .post('http://cuidomivoto.com/api/tdRegistrarTipoDen', data)
             .then(response => {

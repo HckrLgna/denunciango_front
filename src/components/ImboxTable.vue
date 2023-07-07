@@ -1,5 +1,5 @@
 <template>
-    <b-container class="p-3 m-auto">
+    <b-container class="">
         <b-row>
             <b-col col md="5" >
                 <h2>Bandeja de Entrada</h2>

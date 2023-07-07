@@ -1,7 +1,7 @@
 <template>
     <div>
         <main class="form-signin w-100 m-auto">
-            <form @submit="onSubmit">
+            <form @submit="login">
                 <div class="text-center">
                   <b-avatar src="https://i.pinimg.com/564x/a6/de/32/a6de325e4daf6807b8dbae3a5557ff3c.jpg" size="5rem"></b-avatar>
                 </div>

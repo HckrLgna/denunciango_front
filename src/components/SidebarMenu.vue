@@ -305,7 +305,7 @@
       flex-direction: column;
       left: 0;
       top: 0;
-      height: auto;
+      height: 650px;
       min-height: min-content;
       /* overflow-y: auto; */
       width: 100px;
