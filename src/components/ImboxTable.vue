@@ -1,5 +1,5 @@
 <template>
-    <b-container class="">
+    <b-container class="p-3 m-auto">
         <b-row>
             <b-col col md="5" >
                 <h2>Bandeja de Entrada</h2>
@@ -117,7 +117,7 @@
   </template>
   
   <script>
-import axios from 'axios';
+    import axios from 'axios';
     export default {
       data() {
         return {

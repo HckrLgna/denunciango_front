@@ -8,11 +8,11 @@
                 <h1 class="mt-5 h3 mb-3 fw-normal text-center">Iniciar Sesion</h1>
 
                 <div class="form-floating">
-                  <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                  <input type="email" class="form-control" id="email" name="email" v-model="email" placeholder="name@example.com">
                   <label for="email">Correo electronico</label>
                 </div>
                 <div class="form-floating">
-                  <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                  <input type="password" class="form-control" id="password"  v-model="password" name="password" placeholder="Contraseña">
                   <label for="password">Contraseña</label>
                 </div>
 
@@ -47,7 +47,7 @@ export default {
         usuEmail: this.email,
         usuPass: this.password,
       };
-
+      console.log(data)
       axios.post('http://cuidomivoto.com/api/usuLoginTrabajador', data)
         .then(response => {
           console.log(response.data);
