@@ -96,6 +96,7 @@
                     :sort-desc.sync="sortDesc"
                     :per-page="perPage"
                     :current-page="currentPage"
+                    :tbody-tr-class="rowClass"
                     medium
                 >
                     <template v-slot:cell(selected)="row">
@@ -156,9 +157,11 @@
           isHidden: true,
           selected: [],
           sortBy: 'denFecha',
-          sortDesc: false,
+          sortDesc: true,
           //modal 
-          modalShow: false
+          modalShow: false,
+          new: ''
+         
         }
       },
       mounted() {
@@ -184,10 +187,36 @@
                 event.stopPropagation();
             })
             this.fetchMarkers();
-               
+            setInterval(this.checkDataIncrease, 25000);   
          
         },
       methods: {
+        checkDataIncrease() {
+            console.log('Consulta');
+        axios.get('https://denunciangows.fly.dev/api/obtenerDenuncias')
+            .then(response => {
+            const newItems = response.data.data.denuncias;
+            //for (let i = 0; i < newItems.length; i++) {
+            const mappedItems = newItems.map(item => ({ ...item, status: this.new }));   
+                const previousValue = this.items.length;
+                const currentValue = newItems.length;
+                //const i = newItems.length-1
+                if (currentValue > previousValue) {
+                    console.log(mappedItems)
+                    this.mappedItems[i].status = "awesome"  
+                }
+            //}
+            this.items = mappedItems;
+            })
+            .catch(error => {
+            console.error(error);
+            });
+        },
+        rowClass(item, type){
+            if (!item || type !== 'row') return
+            if (item.status === 'awesome') return 'table-success'
+        },
+         
         openModal(){
             this.modalShow = true;
             this.initMap();
@@ -353,6 +382,7 @@
             this.selected.join(',');
             this.fetchMarkers();  
         },
+        
        
       },
       computed: {
@@ -379,5 +409,8 @@
     .google-map {
         width: 100%;
         height: 500px;
+    }
+    .highlighted-row {
+        background-color: yellow;
     }
   </style>
